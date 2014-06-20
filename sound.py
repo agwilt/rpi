@@ -26,7 +26,6 @@ def note_to_freq(note,a=440.0):
 	else:
 		n = int(note[1:])
 
-	print c * (2**(1/12.0))**(f+(n*12))
 	return c * (2**(1/12.0))**(f+(n*12))
 	
 
@@ -43,13 +42,12 @@ def sound(length, freq):
 		GPIO.output(25, GPIO.LOW)
 		time.sleep(i - 0.00018)
 
-def play(music):
+def play(music,user_a):
 	T = 240 / float(music.pop(0)) # time in seconds for a bar
 	for note in music:
 		if note[0] != '/':
 			c = note.index(" ")
-			print("Note: %s" % note[:c])
-			freq = note_to_freq(note[:c])
+			freq = note_to_freq(note[:c],a=user_a)
 			length = T/float(note[c+1:])
 			sound(length, freq)
 
@@ -57,4 +55,8 @@ if __name__ == "__main__":
 	init()
 	music = open(sys.argv[1]).read().split("\n")
 	music.pop()
-	play(music)
+	if "-a" in sys.argv:
+		a = float(sys.argv[sys.argv.index("-a")+1])
+	else:
+		a = 440
+	play(music,a)
