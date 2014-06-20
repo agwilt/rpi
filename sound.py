@@ -18,13 +18,13 @@ def sound(length, freq):
 		time.sleep(i - 0.00018)
 
 def play(music):
-	T = 240 / int(music.pop(0)) # time in seconds for a bar
+	T = 240 / float(music.pop(0)) # time in seconds for a bar
 	for note in music:
 		if note[0] != '/':
 			c = note.index(",")
 			freq = float(note[:c])
-			time = T/int(note[c+1:])
-			sound(time, freq)
+			length = T/float(note[c+1:])
+			sound(length, freq)
 
 if __name__ == "__main__":
 	init()
