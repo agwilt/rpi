@@ -30,6 +30,7 @@ def note_to_freq(note,a=440.0):
 	
 
 def init():
+	GPIO.setwarnings(False)
 	GPIO.setmode(GPIO.BCM)
 	GPIO.setup(25, GPIO.OUT)
 
